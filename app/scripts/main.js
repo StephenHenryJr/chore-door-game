@@ -42,18 +42,6 @@ const isBot = (door) => {
   }
 };
 
-// Function will first reduce number of closed doors
-// Function will then check if number of closed doors is 0 and you win 
-// Function will then check if isBot() function evaluates to True and you lose
-const playDoor = (door) => {
-  numClosedDoors--;
-  if (numClosedDoors === 0 ) {
-    gameOver('win');
-  } else if (isBot(door)) {
-    gameOver('lose');
-  };
-};
-
 // Randomly selects our 3 images and placed them behind the door
 // variable choreDoor is created and generates random number between 1 & 3
 // choreDoor number then used in conditional statement to assign img to doors
@@ -75,6 +63,9 @@ const randomChoreDoorGenerator= () => {
   };
 
 // Opens Door On Click and checks how many doors have been opened
+// If currentlyPlaying is still set to True and door has not been clicked
+// cnt. it will set the door img to equal whatever is set for this door
+// playDoor() will then run, reducing the number of closed doors and checking if you won or lost
 door1.onclick = () => {
   if(currentlyPlaying && !isClicked(doorImage1)) {
   doorImage1.src = openDoor1;
@@ -82,14 +73,12 @@ door1.onclick = () => {
 }
 
 };
-
 door2.onclick = () => {
   if(currentlyPlaying && !isClicked(doorImage2)) {
   doorImage2.src = openDoor2;
   playDoor(doorImage2);
   }
 };
-
 door3.onclick = () => {
   if(currentlyPlaying && !isClicked(doorImage3)) {
   doorImage3.src = openDoor3;
@@ -98,12 +87,16 @@ door3.onclick = () => {
 };
 
 // Function that starts game when startButton is clicked
+// If currentlyPlaying is false, startRound() will fire off
 startButton.onclick = () => {
   if (currentlyPlaying === false) {
   startRound();
   };
 };
 
+// Simply resets game by setting all door img's back to the closed door img
+// All other variables are reset
+// randomChoreDoorGenerator() fired off to reset images behind doors
 const startRound = () => {
   doorImage1.src = closedDoorPath;
   doorImage2.src = closedDoorPath;
@@ -114,8 +107,20 @@ const startRound = () => {
   randomChoreDoorGenerator();
 };
 
+// Function will first reduce number of closed doors
+// Function will then check if number of closed doors is 0 and you win 
+// Function will then check if isBot() function evaluates to True and you lose
+const playDoor = (door) => {
+  numClosedDoors--;
+  if (numClosedDoors === 0 ) {
+    gameOver('win');
+  } else if (isBot(door)) {
+    gameOver('lose');
+  };
+};
 
 // Function that checks if you won the game and updates button HTML
+// status parameter will check if it's equal to win or lose
 const gameOver = (status) => {
   if (status === 'win') {
     startButton.innerHTML = 'You win! Play again?';
