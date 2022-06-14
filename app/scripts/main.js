@@ -20,7 +20,20 @@ let openDoor3;
 
 let currentlyPlaying = true;
 
+// Function that checks and allows for door to be clicked only once
+// Checks src of image to see if it is equal to the closed door image
+// If it is, then that means it has never been clicked and therefore will be false
+const isClicked = (door) => {
+  if (door.src === closedDoorPath) {
+    return false;
+  } else {
+    return true;s
+  };
+};
+
 // Function that checks if image is Bot images
+// Checks image src and if equal to the Bot image it will return true
+// The parameter 'door' will be equal to 1 of the 3 door image ID's
 const isBot = (door) => {
   if (door.src === botDoorPath) {
     return true;
@@ -29,16 +42,9 @@ const isBot = (door) => {
   }
 };
 
-// Function that checks and allows for door to be clicked only once
-const isClicked = (door) => {
-  if (door.src === closedDoorPath) {
-    return false;
-  } else {
-    return true;
-  };
-};
-
-// Function that determines when all doors have been opened
+// Function will first reduce number of closed doors
+// Function will then check if number of closed doors is 0 and you win 
+// Function will then check if isBot() function evaluates to True and you lose
 const playDoor = (door) => {
   numClosedDoors--;
   if (numClosedDoors === 0 ) {
@@ -48,9 +54,11 @@ const playDoor = (door) => {
   };
 };
 
-// Generates random number with conditional statement for placing images randomly behind doors
+// Randomly selects our 3 images and placed them behind the door
+// variable choreDoor is created and generates random number between 1 & 3
+// choreDoor number then used in conditional statement to assign img to doors
 const randomChoreDoorGenerator= () => {
-  choreDoor = Math.floor(Math.random() * numClosedDoors);
+  let choreDoor = Math.floor(Math.random() * numClosedDoors);
   if (choreDoor === 0) {
     openDoor1 = botDoorPath;
     openDoor2 = beachDoorPath;
