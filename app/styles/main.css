@@ -58,16 +58,18 @@ body {
 .start-row {
   margin: auto;
   width: 120px;
-  height: 43px;
+  height: 50px;
   font-family: 'Work Sans';
   background-color: #eb6536;
-  padding-top: 18px;
   font-size: 18px;
   text-align: center;
   color: #010165;
   margin-bottom: 21px;
   cursor: pointer;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*---Comments---*/
